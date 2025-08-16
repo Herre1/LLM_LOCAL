@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat con Gemma 3 1B</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #1e1f26; color: #f5f6fa; }
+        .container { max-width: 750px; margin: auto; padding: 20px; }
+        h1 { text-align: center; margin-bottom: 20px; }
+        .chat-box {
+            background: #2a2d38; padding: 15px; border-radius: 10px;
+            height: 400px; overflow-y: auto; border: 1px solid #444;
+        }
+        .msg { margin: 10px 0; padding: 10px; border-radius: 6px; }
+        .usuario { background: #4f8cff; color: #fff; text-align: right; }
+        .asistente { background: #3b3f4c; color: #f5f6fa; text-align: left; }
+        form { display: flex; gap: 10px; margin-top: 15px; }
+        input[type=text] {
+            flex: 1; padding: 10px; border-radius: 6px;
+            border: 1px solid #666; background: #2a2d38; color: #fff;
+        }
+        button {
+            padding: 10px 15px; border: none; border-radius: 6px;
+            cursor: pointer; font-size: 14px;
+        }
+        .btn-enviar { background: #4f8cff; color: #fff; }
+        .btn-motivacion { background: #f39c12; color: #fff; }
+        .btn-limpiar { background: #e74c3c; color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💬 Chat con Gemma 3 1B</h1>
+
+        <div class="chat-box">
+            {% if historial %}
+                {% for msg in historial %}
+                    <div class="msg {{ msg.tipo }}">
+                        <strong>{% if msg.tipo == 'usuario' %}Tú:{% else %}Gemma:{% endif %}</strong>
+                        <p>{{ msg.contenido }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="text-align:center; color:#999;">Escribe algo para comenzar...</p>
+            {% endif %}
+        </div>
+
+        <form method="post">
+            <input type="text" name="prompt" placeholder="Escribe tu mensaje..." autofocus>
+            <button type="submit" class="btn-enviar">Enviar</button>
+            <button type="submit" name="motivacion" value="1" class="btn-motivacion">✨ Motivación</button>
+            <button type="submit" name="limpiar" value="1" class="btn-limpiar">Limpiar</button>
+        </form>
+    </div>
+</body>
+</html>
